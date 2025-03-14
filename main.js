@@ -245,3 +245,241 @@ document.querySelectorAll('#proyectos article').forEach(project => {
     project.style.setProperty('--mouse-y', `${y}px`);
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Añadir al JavaScript existente
+const certificacionesSection = document.querySelector('#certificaciones');
+
+// Animación de entrada para certificaciones
+const certificacionesObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+certificacionesObserver.observe(certificacionesSection);
+
+// Efecto hover dinámico
+document.querySelectorAll('#certificaciones li').forEach(cert => {
+  cert.addEventListener('mousemove', (e) => {
+    const rect = cert.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    cert.style.setProperty('--mouse-x', `${x}px`);
+    cert.style.setProperty('--mouse-y', `${y}px`);
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Añadir al JavaScript existente
+const experienciaSection = document.querySelector('#experiencia');
+
+// Animación de entrada para experiencia
+const experienciaObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+experienciaObserver.observe(experienciaSection);
+
+// Efecto de timeline
+document.querySelectorAll('#experiencia article').forEach((exp, index) => {
+  exp.style.transitionDelay = `${index * 0.1}s`;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Añadir al JavaScript existente
+const contactoSection = document.querySelector('#contacto');
+
+// Animación de entrada para contacto
+const contactoObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+contactoObserver.observe(contactoSection);
+
+// Validación de formulario mejorada
+document.querySelector('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = 'Enviando... <div class="spinner"></div>';
+  
+  // Simular envío (reemplazar con tu API)
+  setTimeout(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Mensaje Enviado ✓';
+    e.target.reset();
+    
+    setTimeout(() => {
+      submitBtn.textContent = 'Enviar Mensaje';
+    }, 2000);
+  }, 1500);
+});
+
+// Efecto de carga para el botón
+const spinnerStyle = document.createElement('style');
+spinnerStyle.textContent = `
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.6s linear infinite;
+}
+`;
+document.head.appendChild(spinnerStyle);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Añadir al JS existente
+document.querySelectorAll('footer a').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      link.style.transform = 'translateX(5px)';
+    });
+    
+    link.addEventListener('mouseleave', () => {
+      link.style.transform = 'translateX(0)';
+    });
+  });
