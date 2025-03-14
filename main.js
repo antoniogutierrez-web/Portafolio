@@ -483,3 +483,62 @@ document.querySelectorAll('footer a').forEach(link => {
       link.style.transform = 'translateX(0)';
     });
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Botón de menú en móviles
+    const menuToggle = document.querySelector(".header__toggle");
+    const menu = document.querySelector(".header__menu");
+
+    if (menuToggle) {
+        menuToggle.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
+    }
+
+    // Suavizar el desplazamiento al hacer clic en los enlaces del menú
+    document.querySelectorAll(".header__link").forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 60,
+                    behavior: "smooth"
+                });
+            }
+
+            // Ocultar menú en móviles después de hacer clic
+            if (menu.classList.contains("active")) {
+                menu.classList.remove("active");
+            }
+        });
+    });
+});
