@@ -168,11 +168,11 @@
     <section id="contacto">
         <h2>Contacto</h2>
         <p>Ponte en contacto para consultas o colaboraciones.</p>
-        
-        <form action="https://formspree.io/f/your-form-id" method="POST">
+    
+        <form id="contact-form">
             <div class="campo">
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+                <input type="text" id="nombre" name="name" placeholder="Tu nombre" required>
             </div>
     
             <div class="campo">
@@ -182,12 +182,42 @@
     
             <div class="campo">
                 <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                <textarea id="mensaje" name="message" placeholder="Escribe tu mensaje aquí..." required></textarea>
             </div>
     
-            <button type="submit">Enviar Mensaje</button>
+            <button type="submit" id="button">Enviar Mensaje</button>
         </form>
     </section>
+    
+    <!-- Agregar EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+      emailjs.init('1jNPiymLBG4I73gr-'); // Reemplaza con tu User ID
+    
+      const btn = document.getElementById('button');
+    
+      document.getElementById('contact-form')
+        .addEventListener('submit', function(event) {
+          event.preventDefault();
+    
+          btn.textContent = 'Enviando...'; // Cambia el texto del botón mientras se envía
+    
+          const serviceID = 'default_service';
+          const templateID = 'template_glsr6bu';
+    
+          emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+              btn.textContent = 'Enviar Mensaje';
+              alert('Mensaje enviado correctamente');
+              this.reset(); // Limpia el formulario
+            }, (err) => {
+              btn.textContent = 'Enviar Mensaje';
+              alert('Error al enviar el mensaje: ' + JSON.stringify(err));
+            });
+        });
+    </script>
+    
+    
     
     
     <!-- Pie de Página -->
