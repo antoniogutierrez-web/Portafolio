@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Portafolio profesional de Antonio Mora, desarrollador full stack especializado en soluciones eficientes y escalables.">
+        <meta name="author" content="Antonio Mora">
+        <meta name="keywords" content="Desarrollador Web, Full Stack, HTML, CSS, JavaScript, Node.js, React, PHP, Laravel">
+        
+        <meta property="og:title" content="Portafolio de Antonio Mora">
+        <meta property="og:description" content="Explora mi trabajo como desarrollador full stack y conoce mis proyectos.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://tuportafolio.com">
+        <meta property="og:image" content="https://tuportafolio.com/preview.jpg">
+        
+        <meta name="robots" content="index, follow">
+        <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono&display=swap" rel="stylesheet">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <title>Antonio Mora | Desarrollador Full Stack</title>
+    </head>
+    
+<body>
+    <!-- Encabezado -->
+    <header class="header">
+        <div class="header__container">
+          <div class="header__logo">
+            <h1>Antonio Mora</h1>
+            <p>Desarrollador Full Stack | HTML, CSS, JavaScript, Python, Node.js, React, SQL, MongoDB, PHP, Laravel</p>
+          </div>
+          <nav class="header__nav" aria-label="Navegación principal">
+            <button class="header__toggle" aria-label="Abrir menú">
+              <span class="header__toggle-bar"></span>
+              <span class="header__toggle-bar"></span>
+              <span class="header__toggle-bar"></span>
+            </button>
+            <ul class="header__menu">
+              <li class="header__item"><a href="#sobre-mi" class="header__link">Sobre Mí</a></li>
+              <li class="header__item"><a href="#habilidades" class="header__link">Habilidades</a></li>
+              <li class="header__item"><a href="#proyectos" class="header__link">Proyectos</a></li>
+              <li class="header__item"><a href="#certificaciones" class="header__link">Certificaciones</a></li>
+              <li class="header__item"><a href="#experiencia" class="header__link">Experiencia</a></li>
+              <li class="header__item"><a href="#contacto" class="header__link">Contacto</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      
+    
+    
+    <!-- Sobre Mí -->
+    <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <p>Desarrollador web con experiencia en soluciones eficientes y escalables, enfocado en escribir código limpio y optimizado.</p>
+        <a href="CV.pdf" download>Descargar CV</a>
+    </section>
+    
+    <!-- Habilidades -->
+    <section id="habilidades">
+        <h2>Habilidades</h2>
+        <ul>
+            <li>HTML, CSS, JavaScript</li>
+            <li>React</li>
+            <li>Node.js</li>
+            <li>Python</li>
+            <li>SQL, MongoDB</li>
+            <li>PHP, Laravel</li>
+            <li>Git, GitHub</li>
+        </ul>
+    </section>
+    
+    
+    <!-- Proyectos -->
+    <section id="proyectos">
+        <h2>Proyectos</h2>
+        <div class="proyectos-container">
+            <article>
+                <h3>Nombre del Proyecto</h3>
+                <p>Descripción breve del proyecto y tecnologías utilizadas.</p>
+                <a href="#">Ver Proyecto</a>
+            </article>
+            <article>
+                <h3>Nombre del Proyecto</h3>
+                <p>Descripción breve del proyecto y tecnologías utilizadas.</p>
+                <a href="#">Ver Proyecto</a>
+            </article>
+            <!-- Agrega más proyectos siguiendo la misma estructura -->
+        </div>
+    </section>
+    
+    
+    <!-- Certificaciones -->
+    <section id="certificaciones">
+        <h2>Certificaciones</h2>
+        <ul>
+            <li>Curso de Creación de Páginas Web - Udemy</li>
+            <li>Estudios en Ingeniería de Sistemas e Informática - UPN Lima (En curso)</li>
+            <li>Primer año de Ingeniería de Sistemas e Informática - Universidad Continental</li>
+            <li>Autoaprendizaje en desarrollo web y software - YouTube, Platzi</li>
+        </ul>
+    </section>
+    
+    
+    <!-- Experiencia -->
+    <section id="experiencia">
+        <h2>Experiencia</h2>
+        <article>
+            <h3>Desarrollador Web - Empresa Argentina</h3>
+            <p>Desarrollo y mantenimiento de aplicaciones web. Trabajo con HTML, CSS, JavaScript, Node.js y bases de datos.</p>
+        </article>
+        <article>
+            <h3>Freelancer - Desarrollo Web para Microempresas</h3>
+            <p>Creación de sitios web personalizados para pequeños negocios, optimizando su presencia en línea.</p>
+        </article>
+        <article>
+            <h3>Soporte Técnico y Desarrollo de Sistemas - Hotel</h3>
+            <p>Implementación de sistemas internos, mantenimiento de equipos y gestión de cámaras de seguridad.</p>
+        </article>
+    </section>
+    
+    
+  
+    
+    <!-- Contacto -->
+    <section id="contacto">
+        <h2>Contacto</h2>
+        <p>Ponte en contacto para consultas o colaboraciones.</p>
+        
+        <form>
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required>
+            </div>
+    
+            <div class="campo">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" placeholder="tucorreo@example.com" required>
+            </div>
+    
+            <div class="campo">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            </div>
+    
+            <button type="submit">Enviar Mensaje</button>
+        </form>
+    </section>
+    
+    
+    <!-- Pie de Página -->
+    <footer>
+        <p>&copy; 2025 Antonio Mora. Todos los derechos reservados.</p>
+        <nav>
+            <ul>
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">LinkedIn</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Portafolio</a></li>
+            </ul>
+        </nav>
+    </footer>
+    <script src="main.js"></script>
+
+    
+</body>
+</html>
