@@ -74,6 +74,23 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.header__toggle');
+    const menu = document.querySelector('.header__menu');
+    const body = document.body;
+
+    if (!toggle || !menu) {
+      console.error("❌ Error: No se encontró el botón de hamburguesa o el menú.");
+      return;
+    }
+
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      toggle.classList.toggle('active');
+      body.classList.toggle('menu-open');
+      console.log("📌 Menú activado:", menu.classList.contains('active'));
+    });
+});
 
 
 

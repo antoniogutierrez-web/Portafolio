@@ -172,6 +172,49 @@
   body {
     overflow-x: hidden;
   }
+  
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Ajuste de imágenes */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Mejora la experiencia en pantallas pequeñas */
+
+@media (max-width: 1024px) {
+#sobre-mi h2 {
+    font-size: 3rem;
+}
+}
+
+@media (max-width: 768px) {
+  #sobre-mi {
+      padding-top: 170px;
+  }
+}
+
+
+
+
 
 
 
@@ -1286,11 +1329,6 @@ footer {
 
 
 
-  @media (max-width: 768px) { /* Aplica solo en pantallas pequeñas */
-    #sobre-mi {
-        padding-top: 200px; /* Ajusta el valor según sea necesario */
-    }
-}
 
 
 
@@ -1324,67 +1362,3 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Contenedor principal */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* Ajuste de imágenes */
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* Mejora la experiencia en pantallas pequeñas */
-@media (max-width: 768px) {
-    body {
-        font-size: 16px;
-    }
-
-    .header__nav ul {
-        display: none; /* Oculta el menú en móviles hasta que se active */
-        flex-direction: column;
-        background: #333;
-        position: absolute;
-        top: 60px;
-        right: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-    }
-
-    .header__nav ul.active {
-        display: flex; /* Muestra el menú cuando se activa */
-    }
-
-    .header__toggle {
-        display: block; /* Botón de menú visible en móviles */
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
-    }
-}
