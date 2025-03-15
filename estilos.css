@@ -1285,16 +1285,7 @@ footer {
 
 
 
-  @media (max-width: 768px) {
-    #sobre-mi {
-        padding-top: 170px;
-    }
-}
-
-
-
-
-
+ 
 
 
 
@@ -1381,3 +1372,23 @@ img {
       font-size: 3rem;
   }
 }
+
+
+ @media (max-width: 768px) {
+    #sobre-mi {
+        padding-top: 170px;
+    }
+}
+
+
+
+
+ @media (max-width: 768px) {
+    #sobre-mi {
+        padding-top: 170px;
+    }
+}
+
+
+
+
