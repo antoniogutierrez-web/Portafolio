@@ -184,36 +184,87 @@ document.querySelector('#sobre-mi a[download]').addEventListener('mousemove', (e
 
 
 
+(() => {
+  'use strict';
 
-// Añadir al JavaScript existente
-const habilidadesSection = document.querySelector('#habilidades');
+  // Animar la sección de habilidades al entrar en pantalla
+  const habilidadesSection = document.querySelector('#habilidades');
+  if (habilidadesSection) {
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target); // Deja de observar una vez animada
+        }
+      });
+    }, { threshold: 0.15 });
+    sectionObserver.observe(habilidadesSection);
+  }
 
-// Animación de entrada para habilidades
-const habilidadesObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
+  // Función para inicializar el efecto de hover dinámico
+  function initDynamicHoverEffect(selector) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(elem => {
+      let animationFrameId = null;
 
-habilidadesObserver.observe(habilidadesSection);
+      const updateMousePosition = (x, y) => {
+        // Actualiza las variables CSS personalizadas que puedes usar en tus estilos
+        elem.style.setProperty('--mouse-x', `${x}px`);
+        elem.style.setProperty('--mouse-y', `${y}px`);
+      };
 
-// Efecto hover dinámico
-document.querySelectorAll('#habilidades li').forEach(item => {
-  item.addEventListener('mousemove', (e) => {
-    const rect = item.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    item.style.setProperty('--mouse-x', `${x}px`);
-    item.style.setProperty('--mouse-y', `${y}px`);
-  });
-});
+      const pointerMoveHandler = (e) => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        const rect = elem.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        animationFrameId = requestAnimationFrame(() => updateMousePosition(x, y));
+      };
 
+      const pointerEnterHandler = () => {
+        elem.classList.add('hover-active');
+      };
 
+      const pointerLeaveHandler = () => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        elem.classList.remove('hover-active');
+        // Reinicia las variables a valores centrales; ajústalo según el efecto deseado
+        elem.style.setProperty('--mouse-x', '50%');
+        elem.style.setProperty('--mouse-y', '50%');
+      };
 
+      // Usa PointerEvent si está disponible, de lo contrario, recurre a mouse events
+      if (window.PointerEvent) {
+        elem.addEventListener('pointerenter', pointerEnterHandler);
+        elem.addEventListener('pointermove', pointerMoveHandler);
+        elem.addEventListener('pointerleave', pointerLeaveHandler);
+      } else {
+        elem.addEventListener('mouseenter', pointerEnterHandler);
+        elem.addEventListener('mousemove', pointerMoveHandler);
+        elem.addEventListener('mouseleave', pointerLeaveHandler);
+      }
+    });
+  }
 
+  // Inicializa el efecto dinámico en elementos con la clase .skill-card o <li> dentro de #habilidades
+  initDynamicHoverEffect('#habilidades .skill-card, #habilidades li');
+
+  // Efecto de "pulso" al hacer clic: añade temporalmente una clase que puedes animar en CSS
+  function initClickPulseEffect(selector) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(elem => {
+      elem.addEventListener('click', () => {
+        elem.classList.add('click-pulse');
+        setTimeout(() => {
+          elem.classList.remove('click-pulse');
+        }, 300); // Duración de la animación en milisegundos
+      });
+    });
+  }
+
+  initClickPulseEffect('#habilidades .skill-card, #habilidades li');
+
+})();
 
 
 
@@ -340,31 +391,84 @@ document.querySelectorAll('#habilidades li').forEach(item => {
 
 
 
-// Añadir al JavaScript existente
-const certificacionesSection = document.querySelector('#certificaciones');
+(() => {
+  'use strict';
 
-// Animación de entrada para certificaciones
-const certificacionesObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.1 });
+  /**
+   * Observes a section and adds a class when it becomes visible.
+   *
+   * @param {Element} section - The DOM element to observe.
+   * @param {string} [visibleClass='visible'] - The class to add when visible.
+   * @param {number} [threshold=0.15] - The visibility threshold.
+   */
+  const initSectionObserver = (section, visibleClass = 'visible', threshold = 0.15) => {
+    if (!section) return;
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add(visibleClass);
+          obs.unobserve(entry.target); // Stop observing once visible
+        }
+      });
+    }, { threshold });
+    observer.observe(section);
+  };
 
-certificacionesObserver.observe(certificacionesSection);
+  // Initialize observer for the certifications section
+  const certSection = document.querySelector('#certificaciones');
+  initSectionObserver(certSection);
 
-// Efecto hover dinámico
-document.querySelectorAll('#certificaciones li').forEach(cert => {
-  cert.addEventListener('mousemove', (e) => {
-    const rect = cert.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    cert.style.setProperty('--mouse-x', `${x}px`);
-    cert.style.setProperty('--mouse-y', `${y}px`);
-  });
-});
+  /**
+   * Adds a dynamic hover effect to elements by updating CSS variables based on pointer position.
+   * Also adds a "pulse" effect on pointer down/up.
+   *
+   * @param {NodeListOf<Element>} elements - Elements to attach the hover effects.
+   */
+  const initDynamicHoverEffect = (elements) => {
+    elements.forEach(element => {
+      let animationFrameId = null;
+
+      const updatePosition = (x, y) => {
+        element.style.setProperty('--mouse-x', `${x}px`);
+        element.style.setProperty('--mouse-y', `${y}px`);
+      };
+
+      const pointerMoveHandler = (e) => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        animationFrameId = requestAnimationFrame(() => updatePosition(x, y));
+      };
+
+      const pointerLeaveHandler = () => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        // Reset to center
+        element.style.setProperty('--mouse-x', '50%');
+        element.style.setProperty('--mouse-y', '50%');
+      };
+
+      const pointerDownHandler = () => {
+        element.classList.add('active');
+      };
+
+      const pointerUpHandler = () => {
+        element.classList.remove('active');
+      };
+
+      // Use pointer events for unified touch/mouse support
+      element.addEventListener('pointermove', pointerMoveHandler, { passive: true });
+      element.addEventListener('pointerleave', pointerLeaveHandler, { passive: true });
+      element.addEventListener('pointerdown', pointerDownHandler, { passive: true });
+      element.addEventListener('pointerup', pointerUpHandler, { passive: true });
+      element.addEventListener('pointercancel', pointerUpHandler, { passive: true });
+    });
+  };
+
+  // Select certification cards for dynamic hover effect
+  const certCards = document.querySelectorAll('#certificaciones .certification-card');
+  initDynamicHoverEffect(certCards);
+})();
 
 
 
@@ -396,22 +500,36 @@ document.querySelectorAll('#certificaciones li').forEach(cert => {
 
 // Añadir al JavaScript existente
 const experienciaSection = document.querySelector('#experiencia');
+const experienciaCards = document.querySelectorAll('.experiencia-card');
 
-// Animación de entrada para experiencia
-const experienciaObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+// Animación de entrada con Intersection Observer
+const experienciaObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach((entry, index) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      entry.target.style.animation = `fadeInUp 0.6s ease-out ${index * 0.15}s both`;
+      observer.unobserve(entry.target); // Detenemos la observación para no reanimar
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.2 });
 
-experienciaObserver.observe(experienciaSection);
+experienciaCards.forEach(card => experienciaObserver.observe(card));
 
-// Efecto de timeline
-document.querySelectorAll('#experiencia article').forEach((exp, index) => {
-  exp.style.transitionDelay = `${index * 0.1}s`;
-});
+// Definimos la animación CSS en JavaScript (en caso de que quieras inline)
+const style = document.createElement('style');
+style.innerHTML = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+`;
+document.head.appendChild(style);
 
 
 
