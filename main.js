@@ -237,31 +237,78 @@ document.querySelectorAll('#habilidades li').forEach(item => {
 
 
 
-// Añadir al JavaScript existente
-const proyectosSection = document.querySelector('#proyectos');
+(() => {
+  'use strict';
 
-// Animación de entrada para proyectos
-const proyectosObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+  /* ====================================
+     Animación de Secciones
+     Se animan al aparecer en pantalla (threshold: 15%)
+  ==================================== */
+  const sections = document.querySelectorAll(
+    '.projects-section, #certificaciones, #experiencia'
+  );
+
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target); // Optimiza dejando de observar una vez animada
+      }
+    });
+  }, { threshold: 0.15 });
+
+  sections.forEach(section => sectionObserver.observe(section));
+
+  /* ====================================
+     Efecto Hover Dinámico en Tarjetas de Proyectos
+     Se utiliza pointermove para soporte en todos los dispositivos
+  ==================================== */
+  const projectCards = document.querySelectorAll('.project-card');
+
+  projectCards.forEach(card => {
+    let animationFrameId = null;
+
+    const updateCardEffect = (x, y) => {
+      // Actualiza las variables CSS personalizadas para efectos dinámicos (puedes usarlas en tus estilos)
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    };
+
+    const handlePointerMove = (e) => {
+      // Cancelar cualquier actualización pendiente
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      const rect = card.getBoundingClientRect();
+      const posX = e.clientX - rect.left;
+      const posY = e.clientY - rect.top;
+      animationFrameId = requestAnimationFrame(() => updateCardEffect(posX, posY));
+    };
+
+    const handlePointerLeave = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      // Restablece la posición al centro (puedes ajustar según efecto deseado)
+      card.style.setProperty('--mouse-x', '50%');
+      card.style.setProperty('--mouse-y', '50%');
+    };
+
+    card.addEventListener('pointermove', handlePointerMove);
+    card.addEventListener('pointerleave', handlePointerLeave);
   });
-}, { threshold: 0.1 });
 
-proyectosObserver.observe(proyectosSection);
+  /* ====================================
+     Efectos Opcionales para Certificaciones y Experiencia
+     Se agrega una clase 'hovered' en pointerenter/leave para animaciones extra definidas en CSS.
+  ==================================== */
+  const addHoverEffects = (selector) => {
+    document.querySelectorAll(selector).forEach(element => {
+      element.addEventListener('pointerenter', () => element.classList.add('hovered'));
+      element.addEventListener('pointerleave', () => element.classList.remove('hovered'));
+    });
+  };
 
-// Efecto hover dinámico para tarjetas
-document.querySelectorAll('#proyectos article').forEach(project => {
-  project.addEventListener('mousemove', (e) => {
-    const rect = project.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    project.style.setProperty('--mouse-x', `${x}px`);
-    project.style.setProperty('--mouse-y', `${y}px`);
-  });
-});
+  addHoverEffects('#certificaciones li');
+  addHoverEffects('#experiencia article');
+
+})();
 
 
 

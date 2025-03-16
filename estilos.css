@@ -491,145 +491,225 @@
 
 
   /* Estilos para Sección Proyectos */
-#proyectos {
-    padding: 4rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: var(--transition);
+/* ====================================
+   Variables y Reset Básico
+======================================= */
+:root {
+  --primary-color: #122836;         /* Azul primario */
+  --secondary-color: #2ecc71;       /* Verde secundario */
+  --dark-color: #333;               /* Texto oscuro */
+  --light-color: #fff;              /* Blanco */
+  --bg-color: #f9f9f9;              /* Fondo general */
+  --font-family-base: 'Helvetica Neue', sans-serif;
+  --transition: all 0.3s ease;
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--bg-color);
+  color: var(--dark-color);
+  line-height: 1.6;
+}
+
+/* ====================================
+   Sección de Proyectos
+======================================= */
+.projects-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: var(--transition);
+}
+
+.projects-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Encabezado de Sección */
+.section-header {
+  
+  margin-bottom: 3rem;
+}
+
+.section-header h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-70%);
+  width: 70%;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 2px;
+}
+
+.section-header p {
+  font-size: 1rem;
+  color: var(--dark-color);
+  margin-top: 0.5rem;
+}
+
+/* Grid de Proyectos */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Tarjeta de Proyecto */
+.project-card {
+  background: var(--light-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Imagen y Vista Previa */
+.project-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.project-image:hover img {
+  transform: scale(1.05);
+}
+
+.project-image figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.349);
+  color: var(--light-color);
+  padding: 0.2rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Información del Proyecto */
+.project-info {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-info h3 {
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.project-info p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+/* Botón "Ver Proyecto" */
+.project-info a {
+  align-self: flex-start;
+  padding: 0.8rem 1.5rem;
+  background: var(--primary-color);
+  color: var(--light-color);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.project-info a:hover {
+  background: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.project-info a::after {
+  content: '→';
+  transition: transform 0.3s ease;
+}
+
+.project-info a:hover::after {
+  transform: translateX(3px);
+}
+
+/* ====================================
+   Media Queries: Responsive Design
+======================================= */
+@media (max-width: 1024px) {
+  .projects-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 2rem;
   }
   
-  #proyectos.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .project-info h3 {
+    font-size: 1.3rem;
   }
   
-  #proyectos h2 {
-    font-family: 'Space Mono', monospace;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    position: relative;
-    display: inline-block;
+  .project-info p {
+    font-size: 0.95rem;
   }
-  
-  #proyectos h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
+}
+
+@media (max-width: 480px) {
+  .section-header h2::after {
     width: 60%;
-    height: 3px;
-    background: var(--primary-color);
-    border-radius: 2px;
   }
   
-  .proyectos-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem 0;
-  }
-  
-  #proyectos article {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  #proyectos article:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  }
-  
-  #proyectos article::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+  .project-info a {
     width: 100%;
-    height: 4px;
-    background: var(--primary-color);
-    transform: scaleX(0);
-    transition: var(--transition);
+    justify-content: center;
   }
-  
-  #proyectos article:hover::before {
-    transform: scaleX(1);
-  }
-  
-  #proyectos h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    color: var(--dark-color);
-  }
-  
-  #proyectos p {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-  }
-  
-  #proyectos a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.5rem;
-    background: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    border-radius: var(--border-radius);
-    transition: var(--transition);
-    font-weight: 500;
-  }
-  
-  #proyectos a:hover {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
-  }
-  
-  #proyectos a::after {
-    content: '→';
-    margin-left: 0.5rem;
-    transition: transform 0.3s ease;
-  }
-  
-  #proyectos a:hover::after {
-    transform: translateX(3px);
-  }
-  
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .proyectos-container {
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    }
-  }
-  
-  @media (max-width: 768px) {
-    #proyectos h2 {
-      font-size: 2rem;
-    }
-    
-    #proyectos article {
-      padding: 1.5rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    #proyectos h2::after {
-      width: 40%;
-    }
-    
-    #proyectos a {
-      width: 100%;
-      justify-content: center;
-    }
-  }
+}
+
 
 
 
@@ -1285,7 +1365,16 @@ footer {
 
 
 
- 
+  @media (max-width: 768px) {
+    #sobre-mi {
+        padding-top: 170px;
+    }
+}
+
+
+
+
+
 
 
 
@@ -1372,23 +1461,3 @@ img {
       font-size: 3rem;
   }
 }
-
-
- @media (max-width: 768px) {
-    #sobre-mi {
-        padding-top: 170px;
-    }
-}
-
-
-
-
- @media (max-width: 768px) {
-    #sobre-mi {
-        padding-top: 170px;
-    }
-}
-
-
-
-
